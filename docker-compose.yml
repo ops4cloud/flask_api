@@ -1,0 +1,15 @@
+version: "3.9"
+    
+services:
+  mongo:
+    hostname: mongodb
+    image: mongo:latest
+    restart: always
+  api:
+    hostname: apiv1.example.com
+    depends_on:
+      - mongo
+    image: flaskapi:latest
+    ports:
+      - "8888:8888"
+    restart: always

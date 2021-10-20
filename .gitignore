@@ -1,0 +1,6 @@
+.history/
+.vscode/
+__pycache__
+flask_api.egg-info/*
+venv/
+.DS_Store
