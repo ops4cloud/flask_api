@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/ops4cloud/flask_api/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ops4cloud/flask_api/actions/workflows/docker-image.yml)
+
 # Flask_api
 
 - Made for myself to create simple and protected backend with mongo and JWT token Auth
