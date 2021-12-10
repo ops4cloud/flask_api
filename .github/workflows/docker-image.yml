@@ -20,4 +20,4 @@ jobs:
         run: docker build . --tag ops4cloud/flaskapi:$(date +%s)
 
       - name: Docker push to ops4cloud
-        run: docker push ${{ secrets.DOCKER_USER }}/flaskapi
+        run: docker push ${{ secrets.DOCKER_USER }}/flaskapi:latest
