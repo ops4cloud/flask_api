@@ -2,14 +2,14 @@ version: "3.9"
     
 services:
   mongo:
-    hostname: mongodb
+    hostname: mongo-service
     image: mongo:latest
     restart: always
   api:
-    hostname: apiv1.example.com
+    hostname: apiv1.ops4cloud.fr
     depends_on:
       - mongo
-    image: flaskapi:latest
+    image: europe-west1-docker.pkg.dev/gotoole-testing/flaskapi/flaskapi:latest
     ports:
-      - "8888:8888"
+      - "80:8888"
     restart: always

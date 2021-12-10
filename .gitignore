@@ -4,3 +4,5 @@ __pycache__
 flask_api.egg-info/*
 venv/
 .DS_Store
+.git
+flask_api/.env

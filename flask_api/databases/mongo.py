@@ -1,17 +1,15 @@
 import json
 import pymongo
 from pymongo import MongoClient
-from werkzeug import exceptions
-from flask_api import settings
 from bson.json_util import dumps
 from flask_api.lib.password import PasswordCrypt
-
+from flask_api.config import Config
 
 class DatabaseMongo():
     def __init__(self):
-        self.mongo_host = settings.MONGO_HOST
-        self.mongo_port = settings.MONGO_PORT
-        self.mongo_db = settings.MONGO_DB
+        self.mongo_host = Config.MONGO_HOST
+        self.mongo_port = Config.MONGO_PORT
+        self.mongo_db = Config.MONGO_DB
         self.client = MongoClient(self.mongo_host, self.mongo_port)
         self.db = self.client[self.mongo_db]
 
@@ -54,7 +52,7 @@ class DatabaseMongo():
         self.db.users.create_index([('login', pymongo.ASCENDING)], unique=True)
         passwdCrypt = PasswordCrypt()
         if 'password' in kwargs:
-            password = passwdCrypt.encrypt_password(kwargs.password)
+            password = passwdCrypt.encrypt_password(kwargs['password'])
         else:
             password = passwdCrypt.generate_password()
         data = {

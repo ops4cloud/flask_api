@@ -33,8 +33,6 @@ class AccessTokenCollection(Resource):
         passwd = PasswordCrypt()
         search = DatabaseMongo()
         result_query = search.check_user_info(request.json['login'])
-        print(result_query)
-        print(request.json['password'], result_query['password'])
         if not result_query:
             return {'message': 'login failed'}, 404
         if passwd.check_encrypted_password(request.json['password'], result_query['password']):

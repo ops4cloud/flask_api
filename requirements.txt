@@ -21,3 +21,4 @@ SQLAlchemy
 Werkzeug
 waitress
 paste
+python-dotenv
