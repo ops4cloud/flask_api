@@ -17,7 +17,7 @@ jobs:
         run:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build docker flaskapi container
-        run: docker build . --tag ops4cloud/flaskapi:$(date +%s)
+        run: docker build . --tag ops4cloud/flaskapi:main
 
       - name: Docker push to ops4cloud
-        run: docker push ops4cloud/flaskapi:$(date +%s)
+        run: docker push ops4cloud/flaskapi:main
