@@ -9,20 +9,15 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          tags: ops4cloud/flaskapi:latest
-      -
-        name: Inspect
-        run: |
-          docker image inspect ops4cloud/flaskapi:latest
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run:
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build docker flaskapi container
+        run: docker build . --tag ops4cloud/flaskapi:$(date +%s)
+
+      - name: Docker push to ops4cloud
+        run: docker push ${{ secrets.DOCKER_USER }}/flaskapi
