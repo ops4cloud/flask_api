@@ -2,7 +2,9 @@
 from os import environ, path
 from dotenv import load_dotenv
 
-load_dotenv(path.join('/config/', '.env'))
+
+load_dotenv(path.join('basedir', '.env'))
+
 
 class Config:
     """Set Flask config variables."""
@@ -11,9 +13,9 @@ class Config:
     WAITRESS_PORT = environ.get('WAITRESS_PORT', 8888)    
     RESTPLUS_VALIDATE = True
     # PyMongo settings
-    MONGO_HOST = environ.get('MONGO_HOST')
-    MONGO_PORT = environ.get('MONGO_PORT', 27017)
-    MONGO_DB = environ.get('MONGO_DB', 'flaskapi')
+    MONGO_HOST = environ.get('MONGO_DB_HOST')
+    MONGO_PORT = environ.get('MONGO_DB_PORT', 27017)
+    MONGO_DB = environ.get('MONGO_DATABASE', 'flaskapi')
 
 class ConfigProd(Config):
     SWAGGER_UI_DOC_EXPANSION = 'list'

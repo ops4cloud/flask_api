@@ -8,7 +8,7 @@ from flask_api.config import Config
 class DatabaseMongo():
     def __init__(self):
         self.mongo_host = Config.MONGO_HOST
-        self.mongo_port = Config.MONGO_PORT
+        self.mongo_port = int(Config.MONGO_PORT)
         self.mongo_db = Config.MONGO_DB
         self.client = MongoClient(self.mongo_host, self.mongo_port)
         self.db = self.client[self.mongo_db]
