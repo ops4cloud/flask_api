@@ -49,16 +49,16 @@ metadata:
   name: mongo
   namespace: apiv1
   labels:
-    app: mongo
+    app: apiv1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongo
+      app: apiv1
   template:
     metadata:
       labels:
-        app: mongo
+        app: apiv1
     spec:
       containers:
       - name: mongo
@@ -71,10 +71,11 @@ kind: Service
 metadata:
   name: mongo
   labels:
-    run: mongo
+    app: apiv1
 spec:
   ports:
     - port: 27017
+      targetPort: 27017
       protocol: TCP
   selector:
-    run: mongo
+    app: apiv1

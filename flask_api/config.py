@@ -2,9 +2,7 @@
 from os import environ, path
 from dotenv import load_dotenv
 
-
-load_dotenv(path.join('basedir', '.env'))
-
+load_dotenv(path.join('/config', '.env'))
 
 class Config:
     """Set Flask config variables."""
