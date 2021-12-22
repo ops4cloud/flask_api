@@ -20,7 +20,7 @@ metadata:
   labels:
     app: apiv1
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: apiv1
@@ -38,38 +38,20 @@ spec:
         volumeMounts:
         - name: config-vol
           mountPath: /config
+      - name: mongo
+        image: mongo:4.4.9-focal
+        ports:
+        - containerPort: 27017
       volumes:
       - name: config-vol
         configMap:
             name: appconfig
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mongo
-  namespace: apiv1
-  labels:
-    app: apiv1
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: apiv1
-  template:
-    metadata:
-      labels:
-        app: apiv1
-    spec:
-      containers:
-      - name: mongo
-        image: mongo:4.4.9
-        ports:
-        - containerPort: 27017
----
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo
+  namespace: apiv1
   labels:
     app: apiv1
 spec:
@@ -79,3 +61,35 @@ spec:
       protocol: TCP
   selector:
     app: apiv1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apiv1
+  namespace: apiv1
+  labels:
+    app: apiv1
+spec:
+  ports:
+    - port: 8888
+      targetPort: 8888
+      protocol: TCP
+  selector:
+    app: apiv1
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: apiv1-ingress
+  namespace: apiv1
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`apiv1.ops4cloud.fr`) && (PathPrefix(`/api`) || PathPrefix(`/swaggerui`))
+      kind: Rule
+      services:
+        - name: apiv1
+          port: 8888
+  tls:
+    secretName: apiv1-ops4cloud-fr-tls

@@ -23,7 +23,7 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    serve(TransLogger(app), host='0.0.0.0', port=app.config['WAITRESS_PORT'])
+    serve(TransLogger(app), host='0.0.0.0', port=app.config['WAITRESS_PORT'], url_scheme=app.config['WAITRESS_HTTP_SCHEME'])
 
 if __name__ == "__main__":
     main()

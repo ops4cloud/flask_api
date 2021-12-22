@@ -17,9 +17,11 @@ class Config:
 
 class ConfigProd(Config):
     SWAGGER_UI_DOC_EXPANSION = 'list'
+    WAITRESS_HTTP_SCHEME = 'https'
     FLASK_DEBUG = False  # Do not use debug mode in production
     JWT_SECRET_KEY = environ.get('JWT_SECRET_KEY')
 
 class ConfigDev(Config):
     SWAGGER_UI_DOC_EXPANSION = 'full'
+    WAITRESS_HTTP_SCHEME = 'http'
     JWT_SECRET_KEY = 'replacemeporfavor'
